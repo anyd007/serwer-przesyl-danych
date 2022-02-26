@@ -13,7 +13,7 @@ app.use(express.json())
 
 //przekazywania danych na stronę sewera
 app.get("/",(req,res) =>{
-    app.send(req.body)
+    res.send(req.body)
 })
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
