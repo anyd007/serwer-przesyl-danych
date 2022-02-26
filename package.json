@@ -1,0 +1,23 @@
+{
+  "name": "serwer-przesyl-danych",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anyd007/serwer-przesyl-danych.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anyd007/serwer-przesyl-danych/issues"
+  },
+  "homepage": "https://github.com/anyd007/serwer-przesyl-danych#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3"
+  }
+}
