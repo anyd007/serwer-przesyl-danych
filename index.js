@@ -36,6 +36,11 @@ app.get("/regestry", (req,res)=>{
 })
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"  
 const herokuPort = process.env.PORT || 1234
+<<<<<<< HEAD
 app.listen(herokuPort, ()=>{
+=======
+//nasłuchiwanie app na jakim porcie na działać
+app.listen(herokuPort, ()=>{ 
+>>>>>>> 8d42dd78c4ceb82f5ccc173f756db322a418d203
     console.log(`Działam na porcie ${herokuPort}`);
 })
