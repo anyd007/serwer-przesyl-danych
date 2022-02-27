@@ -1,8 +1,9 @@
 const express = require("express")
 const cors = require("cors")
-const server = {
-    port:1234
-}
+const path = require("path/posix")
+// const server = {
+//     port:5000
+// }
 const app = express()
 
 const regystryUsers = []
@@ -34,8 +35,9 @@ app.get("/regestry", (req,res)=>{
    app.get("/loginUserDatabase",(req,res)=>{
     res.json({loginUserDatabase})
 })
+
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"  
-const herokuPort = process.env.PORT || 1234
+const herokuPort = process.env.PORT || 5000
 //nasłuchiwanie app na jakim porcie na działać
 app.listen(herokuPort, ()=>{ 
     console.log(`Działam na porcie ${herokuPort}`);
