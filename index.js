@@ -22,12 +22,12 @@ app.get("/",(req,res) =>{
 })
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/regestry", (req,res)=>{
+app.post("/regestry", cors(corsOptions),(req,res)=>{
     regystryUsers.push(req.body)
     res.status(200).end
 })
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
-app.post("/loginUserDatabase", (req,res)=>{
+app.post("/loginUserDatabase", cors(corsOptions),(req,res)=>{
     loginUserDatabase.push(req.body)
     res.status(200).end
 })
