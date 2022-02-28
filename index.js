@@ -3,10 +3,7 @@ const express = require("express");
 var cors = require("cors");
 const path = require("path/posix");
 const app = express();
-var whitelist = [
-  "https://dream-team-andrzej.herokuapp.com",
-  "http://localhost:3000",
-];
+var expressWs = require('express-ws')(app);
 const corsOptions ={
     origin:'*', 
     credentials:true,            
@@ -21,6 +18,12 @@ const loginUserDatabase = [];
 app.get("/", (req, res) => {
   res.send(req.body);
 });
+app.ws('/', function(ws, req) {
+    ws.on('message', function(msg) {
+      console.log(msg);
+    });
+    console.log('socket', req.testing);
+  });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post("/regestry",(req, res) => {
