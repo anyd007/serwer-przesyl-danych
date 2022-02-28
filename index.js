@@ -3,7 +3,7 @@ const express = require("express");
 var cors = require("cors");
 const path = require("path/posix");
 const app = express();
-var expressWs = require('express-ws')(app);
+const multipleCORSDomain = require('multiple-cors-domain');
 // const corsOptions ={
 //     origin:'*', 
 //     credentials:true,            
@@ -15,6 +15,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+  app.use(multipleCORSDomain({ any: true }));
 app.use(express.json());
 const regystryUsers = [];
 const loginUserDatabase = [];
