@@ -8,7 +8,17 @@ const app = express()
 
 const regystryUsers = []
 const loginUserDatabase = []
-app.use(cors())
+
+// app.use(cors())
+app.use(
+    cors({
+      allowedHeaders: ["authorization", "Content-Type"], 
+      exposedHeaders: ["authorization"], 
+      origin: "*",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false
+    })
+  )
 app.use(express.json())
 
 
