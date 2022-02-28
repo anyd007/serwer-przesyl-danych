@@ -9,13 +9,14 @@ const app = express()
 const regystryUsers = []
 const loginUserDatabase = []
 
-app.use(cors({
-    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
-}));
+app.use(cors());
 app.options('*', cors())
 app.use(express.json())
 
-
+var corsOptions = {
+    origin: 'https://dream-team-andrzej.herokuapp.com',
+    optionsSuccessStatus: 200 
+  }
 //przekazywania danych na stronę sewera
 app.get("/",(req,res) =>{
     res.send(req.body)
@@ -32,11 +33,11 @@ app.post("/loginUserDatabase", (req,res)=>{
     res.status(200).end
 })
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/regestry", cors(), (req,res)=>{
+app.get("/regestry", cors(corsOptions), (req,res)=>{
     res.json({regystryUsers})
 })
    //wysłanie danych do bazy danych zalogowanego uzytkownika
-   app.get("/loginUserDatabase", cors(), (req,res)=>{
+   app.get("/loginUserDatabase", cors(corsOptions), (req,res)=>{
     res.json({loginUserDatabase})
 })
 
