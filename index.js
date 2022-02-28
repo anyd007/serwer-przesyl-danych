@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/regestry", (req, res) => {
+app.post("/regestry", cors(corsOptions),(req, res) => {
   regystryUsers.push(req.body);
   res.status(200).end;
 });
@@ -38,7 +38,7 @@ app.post("/loginUserDatabase", (req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/regestry", (req, res) => {
+app.get("/regestry", cors(corsOptions),(req, res) => {
   res.json({ regystryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
