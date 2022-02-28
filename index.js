@@ -4,12 +4,17 @@ var cors = require("cors");
 const path = require("path/posix");
 const app = express();
 var expressWs = require('express-ws')(app);
-const corsOptions ={
-    origin:'*', 
-    credentials:true,            
-    optionSuccessStatus:200,
- }
-app.use(cors(corsOptions));
+// const corsOptions ={
+//     origin:'*', 
+//     credentials:true,            
+//     optionSuccessStatus:200,
+//  }
+// app.use(cors(corsOptions));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://dream-team-andrzej.herokuapp.com/"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 app.use(express.json());
 const regystryUsers = [];
 const loginUserDatabase = [];
@@ -18,12 +23,6 @@ const loginUserDatabase = [];
 app.get("/", (req, res) => {
   res.send(req.body);
 });
-app.ws('/', function(ws, req) {
-    ws.on('message', function(msg) {
-      console.log(msg);
-    });
-    console.log('socket', req.testing);
-  });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post("/regestry",(req, res) => {
