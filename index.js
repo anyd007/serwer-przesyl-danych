@@ -1,3 +1,4 @@
+// Access-Control-Allow-Origin: *
 const express = require("express");
 var cors = require("cors");
 const path = require("path/posix");
@@ -6,20 +7,14 @@ var whitelist = [
   "https://dream-team-andrzej.herokuapp.com",
   "http://localhost:3000",
 ];
-var corsOptions = {
-  credentials: true,
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            
+    optionSuccessStatus:200,
+ }
 app.use(cors(corsOptions));
 app.use(express.json());
 const regystryUsers = [];
-
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
@@ -28,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/regestry", cors(corsOptions),(req, res) => {
+app.post("/regestry",(req, res) => {
   regystryUsers.push(req.body);
   res.status(200).end;
 });
@@ -38,7 +33,7 @@ app.post("/loginUserDatabase", (req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/regestry", cors(corsOptions),(req, res) => {
+app.get("/regestry",(req, res) => {
   res.json({ regystryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
