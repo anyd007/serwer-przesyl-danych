@@ -9,16 +9,7 @@ const app = express()
 const regystryUsers = []
 const loginUserDatabase = []
 
-// app.use(cors())
-app.use(
-    cors({
-      allowedHeaders: ["authorization", "Content-Type"], 
-      exposedHeaders: ["authorization"], 
-      origin: "*",
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      preflightContinue: false
-    })
-  )
+app.use(cors())
 app.use(express.json())
 
 
@@ -38,11 +29,11 @@ app.post("/loginUserDatabase", (req,res)=>{
     res.status(200).end
 })
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/regestry", (req,res)=>{
+app.get("/regestry", cors(), (req,res)=>{
     res.json({regystryUsers})
 })
    //wysłanie danych do bazy danych zalogowanego uzytkownika
-   app.get("/loginUserDatabase",(req,res)=>{
+   app.get("/loginUserDatabase", cors(), (req,res)=>{
     res.json({loginUserDatabase})
 })
 
