@@ -1,5 +1,5 @@
 const express = require("express")
-const cors = require("cors")
+var cors = require('cors')
 const path = require("path/posix")
 // const server = {
 //     port:5000
