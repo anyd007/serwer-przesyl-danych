@@ -12,10 +12,18 @@ const loginUserDatabase = []
 app.use(cors());
 app.use(express.json())
 
+var whitelist = ['https://dream-team-andrzej.herokuapp.com', 'http://localhost:3000']
 var corsOptions = {
-    origin: 'https://dream-team-andrzej.herokuapp.com',
-    optionsSuccessStatus: 200 
+    credentials: true,
+    origin: function(origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    }
   }
+  
 //przekazywania danych na stronę sewera
 app.get("/",(req,res) =>{
     res.send(req.body)
