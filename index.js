@@ -1,7 +1,7 @@
 
 const express = require("express");
 var cors = require("cors");
-const path = require("path/posix");
+const path = require("path");
 const app = express();
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
@@ -21,7 +21,7 @@ const regestryUsers = [];
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
-app.get("/", cors(corsOptions), (req, res) => {
+app.get("/", cors(), (req, res) => {
   res.send(req.body);
 });
 
@@ -36,11 +36,11 @@ app.post("/api/loginUserDatabase", (req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", cors(corsOptions),(req, res) => {
+app.get("/api/regestry", cors(),(req, res) => {
   res.json({ regestryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase", cors(corsOptions), (req, res) => {
+app.get("/api/loginUserDatabase", cors(), (req, res) => {
   res.json({ loginUserDatabase });
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
