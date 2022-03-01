@@ -7,22 +7,23 @@ app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
 app.use(cors());
 var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:3000']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } 
-  } else {
-    corsOptions = { origin: false } 
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
   }
-  callback(null, corsOptions) 
 }
 app.use(express.json());
 const regestryUsers = [];
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
-app.get("/", cors(corsOptionsDelegate), (req, res) => {
+app.get("/", cors(corsOptions), (req, res) => {
   res.send(req.body);
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
@@ -36,12 +37,14 @@ app.post("/api/loginUserDatabase", (req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", cors(corsOptionsDelegate),(req, res) => {
+app.get("/api/regestry", cors(corsOptions),(req, res) => {
   res.json({ regestryUsers });
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase", cors(corsOptionsDelegate), (req, res) => {
+app.get("/api/loginUserDatabase", cors(corsOptions), (req, res) => {
   res.json({ loginUserDatabase });
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
 const herokuPort = process.env.PORT || 5000;
