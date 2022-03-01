@@ -10,7 +10,7 @@ var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:30
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+      callback(true)
     } else {
       callback(new Error('Not allowed by CORS'))
     }
