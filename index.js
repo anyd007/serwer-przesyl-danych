@@ -23,7 +23,6 @@ const loginUserDatabase = [];
 //przekazywania danych na stronę sewera
 app.get("/", cors(corsOptions), (req, res) => {
   res.send(req.body);
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
@@ -39,12 +38,10 @@ app.post("/api/loginUserDatabase", (req, res) => {
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
 app.get("/api/regestry", cors(corsOptions),(req, res) => {
   res.json({ regestryUsers });
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
 app.get("/api/loginUserDatabase", cors(corsOptions), (req, res) => {
   res.json({ loginUserDatabase });
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
 const herokuPort = process.env.PORT || 5000;
