@@ -6,7 +6,7 @@ const app = express();
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
 app.use(cors());
-var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:3000']
+var whitelist = ['https://dream-team-andrzej.herokuapp.com/api/regestry','https://dream-team-andrzej.herokuapp.com/api/loginUserDatabase','http://localhost:3000']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (whitelist.indexOf(req.header('Origin')) !== -1) {
