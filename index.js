@@ -17,7 +17,9 @@ app.use(cors());
 //   callback(null, corsOptions) // callback expects two parameters: error and options
 // }
 var corsOptions = {
+  host: "https://serwer-dream-team.herokuapp.com/",
   origin: 'https://dream-team-andrzej.herokuapp.com/',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(express.json());
