@@ -18,7 +18,15 @@ const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
 app.get("/", (req, res) => {
+  request(
+    { url: 'https://dream-team-andrzej.herokuapp.com/' },
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: err.message });
+      }
   res.send(req.body);
+    }
+  )
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
@@ -34,7 +42,7 @@ app.post("/api/loginUserDatabase", (req, res) => {
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
 app.get("/api/regestry",(req, res) => {
   request(
-    { url: 'https://dream-team-andrzej.herokuapp.com/api/regestry' },
+    { url: 'https://dream-team-andrzej.herokuapp.com/api/regestry/' },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: 'error', message: err.message });
