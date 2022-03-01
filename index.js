@@ -6,17 +6,22 @@ const app = express();
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
 app.use(cors());
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "https://dream-team-andrzej.herokuapp.com"); // update to match the domain you will make the request from
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//   });
+var whitelist = ['https://dream-team-andrzej.herokuapp.com']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } 
+  } else {
+    corsOptions = { origin: false } 
+  }
+  callback(null, corsOptions) 
+}
 app.use(express.json());
 const regestryUsers = [];
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
-app.get("/", (req, res) => {
+app.get("/", cors(corsOptionsDelegate), (req, res) => {
   res.send(req.body);
 });
 
@@ -31,16 +36,13 @@ app.post("/api/loginUserDatabase", (req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry",(req, res) => {
+app.get("/api/regestry", cors(corsOptionsDelegate),(req, res) => {
   res.json({ regestryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase", (req, res) => {
+app.get("/api/loginUserDatabase", cors(corsOptionsDelegate), (req, res) => {
   res.json({ loginUserDatabase });
 });
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/client/build/index.html'));
-  });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
 const herokuPort = process.env.PORT || 5000;
 //nasłuchiwanie app na jakim porcie na działać
