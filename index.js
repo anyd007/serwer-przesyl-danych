@@ -1,4 +1,4 @@
-// Access-Control-Allow-Origin: *
+
 const express = require("express");
 var cors = require("cors");
 const path = require("path/posix");
@@ -7,15 +7,15 @@ app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
 app.use(cors());
 var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:3000']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 app.use(express.json());
 const regestryUsers = [];
 const loginUserDatabase = [];
