@@ -22,7 +22,7 @@ const regestryUsers = [];
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
-app.get("/",cors(),(req, res) => {
+app.get("*",cors(),(req, res) => {
   res.send(req.body);
 });
 
