@@ -3,9 +3,11 @@ const express = require("express");
 var cors = require("cors");
 const path = require("path");
 const app = express();
+// app.use(cors());
+app.use(cors({credentials: true}))
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
-app.use(cors());
+
 // var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:3000']
 // var corsOptionsDelegate = function (req, callback) {
 //   var corsOptions;
@@ -16,12 +18,13 @@ app.use(cors());
 //   }
 //   callback(null, corsOptions) // callback expects two parameters: error and options
 // }
-var corsOptions = {
-  origin: 'https://dream-team-andrzej.herokuapp.com/',
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+// var corsOptions = {
+//   origin: 'https://dream-team-andrzej.herokuapp.com/',
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 // app.options('*', cors())
+
 app.use(express.json());
 const regestryUsers = [];
 const loginUserDatabase = [];
@@ -42,11 +45,11 @@ app.post("/api/loginUserDatabase",(req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", cors(corsOptions),(req, res) => {
+app.get("/api/regestry",(req, res) => {
   res.json({ regestryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase", cors(corsOptions), (req, res) => {
+app.get("/api/loginUserDatabase", (req, res) => {
   res.json({ loginUserDatabase });
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
