@@ -3,8 +3,14 @@ const express = require("express");
 var cors = require("cors");
 const path = require("path");
 const app = express();
+const http = require("http").createServer(app)
+const socketIT = require("socket.io")(http, {
+  cors:{
+    origin:"*"
+  }
+})
 // var cors_proxy = require('cors-anywhere');
-app.use(cors());
+// app.use(cors());
 // app.use(cors({credentials: true}))
 // app.use('/', express.static(__dirname +'/src'));
 // app.use('/public', express.static(__dirname +'/public'));
@@ -40,6 +46,6 @@ app.get("/api/loginUserDatabase", cors(),(req, res) => {
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
 const herokuPort = process.env.PORT || 5000;
 //nasłuchiwanie app na jakim porcie na działać
-app.listen(herokuPort, () => {
+http.listen(herokuPort, () => {
   console.log(`Działam na porcie ${herokuPort}`);
 });
