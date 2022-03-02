@@ -1,17 +1,10 @@
-var allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://dream-team-andrzej.herokuapp.com','http://localhost:3000');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header('Access-Control-Allow-Headers', 'privatekey')
-  next();
-}
+
 const express = require("express");
 var cors = require("cors");
 const path = require("path");
 const app = express();
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
-app.use(allowCrossDomain)
 app.use(cors());
 // var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:3000']
 // var corsOptionsDelegate = function (req, callback) {
@@ -23,11 +16,11 @@ app.use(cors());
 //   }
 //   callback(null, corsOptions) // callback expects two parameters: error and options
 // }
-// var corsOptions = {
-//   origin: 'https://dream-team-andrzej.herokuapp.com/',
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
+var corsOptions = {
+  origin: 'https://dream-team-andrzej.herokuapp.com/',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 // app.options('*', cors())
 app.use(express.json());
 const regestryUsers = [];
@@ -39,21 +32,21 @@ app.get("/",(req, res) => {
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/api/regestry",(req, res) => {
+app.post("/api/regestry", cors(corsOptions),(req, res) => {
   regestryUsers.push(req.body);
   res.status(200).end;
 });
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
-app.post("/api/loginUserDatabase", (req, res) => {
+app.post("/api/loginUserDatabase", cors(corsOptions),(req, res) => {
   loginUserDatabase.push(req.body);
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", (req, res) => {
+app.get("/api/regestry", cors(corsOptions),(req, res) => {
   res.json({ regestryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase",  (req, res) => {
+app.get("/api/loginUserDatabase", cors(corsOptions), (req, res) => {
   res.json({ loginUserDatabase });
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
