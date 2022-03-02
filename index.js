@@ -3,6 +3,7 @@ const express = require("express");
 var cors = require("cors");
 const path = require("path");
 const app = express();
+app.use(cors());
 const http = require("http").createServer(app)
 const socketIT = require("socket.io")(http, {
   cors:{
@@ -10,7 +11,7 @@ const socketIT = require("socket.io")(http, {
   }
 })
 // var cors_proxy = require('cors-anywhere');
-// app.use(cors());
+
 // app.use(cors({credentials: true}))
 // app.use('/', express.static(__dirname +'/src'));
 // app.use('/public', express.static(__dirname +'/public'));
