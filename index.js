@@ -3,27 +3,12 @@ const express = require("express");
 var cors = require("cors");
 const path = require("path");
 const app = express();
+// var cors_proxy = require('cors-anywhere');
 app.use(cors());
-app.use(cors({credentials: true}))
-app.use('/', express.static(__dirname +'/src'));
-app.use('/public', express.static(__dirname +'/public'));
+// app.use(cors({credentials: true}))
+// app.use('/', express.static(__dirname +'/src'));
+// app.use('/public', express.static(__dirname +'/public'));
 
-// var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:3000']
-// var corsOptionsDelegate = function (req, callback) {
-//   var corsOptions;
-//   if (whitelist.indexOf(req.header('Origin')) !== -1) {
-//     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-//   } else {
-//     corsOptions = { origin: false } // disable CORS for this request
-//   }
-//   callback(null, corsOptions) // callback expects two parameters: error and options
-// }
-// var corsOptions = {
-//   origin: 'https://dream-team-andrzej.herokuapp.com/',
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
-// app.options('*', cors())
 
 app.use(express.json());
 const regestryUsers = [];
