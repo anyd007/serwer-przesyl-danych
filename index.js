@@ -4,12 +4,10 @@ var cors = require("cors");
 const path = require("path");
 const app = express();
 app.use(cors());
-const http = require("http").createServer(app)
-const socketIT = require("socket.io")(http, {
-  cors:{
-    origin:"*"
-  }
-})
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://dream-team-andrzej.herokuapp.com/, https://dream-team-andrzej.herokuapp.com"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -24,10 +22,19 @@ app.use(function(req, res, next) {
 app.use(express.json());
 const regestryUsers = [];
 const loginUserDatabase = [];
+const connections = [];
 
 //przekazywania danych na stronę sewera
 app.get("/",cors(),(req, res) => {
   res.send(req.body);
+});
+
+io.on('regestryUsers',(socket) => {
+  regestryUsers.push(socket);
+  console.log('a user connected');
+});
+io.on('loginUserDatabase',(socket) => {
+  loginUserDatabase.push(socket);
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
@@ -51,6 +58,6 @@ app.get("/api/loginUserDatabase", cors(),(req, res) => {
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
 const herokuPort = process.env.PORT || 80;
 //nasłuchiwanie app na jakim porcie na działać
-http.listen(herokuPort, () => {
+server.listen(herokuPort, () => {
   console.log(`Działam na porcie ${herokuPort}`);
 });
