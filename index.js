@@ -32,12 +32,12 @@ app.get("/",(req, res) => {
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/api/regestry", cors(corsOptions),(req, res) => {
+app.post("/api/regestry",(req, res) => {
   regestryUsers.push(req.body);
   res.status(200).end;
 });
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
-app.post("/api/loginUserDatabase", cors(corsOptions),(req, res) => {
+app.post("/api/loginUserDatabase",(req, res) => {
   loginUserDatabase.push(req.body);
   res.status(200).end;
 });
