@@ -3,7 +3,7 @@ const express = require("express");
 var cors = require("cors");
 const path = require("path");
 const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(cors({credentials: true}))
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
