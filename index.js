@@ -21,13 +21,13 @@ app.use(cors());
 //   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
-app.options('*', cors())
+// app.options('*', cors())
 app.use(express.json());
 const regestryUsers = [];
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
-app.get("/", (req, res) => {
+app.get("/", cors(),(req, res) => {
   res.send(req.body);
 });
 
