@@ -15,6 +15,7 @@ const regestryUsers = [];
 const loginUserDatabase = [];
 //przekazywania danych na stronę sewera
 app.get("/",(req, res) => {
+  res.set('Access-Control-Allow-Origin', 'https://serwer-dream-team.herokuapp.com');
   res.send(req.body);
 });
 
