@@ -1,8 +1,3 @@
-
-const express = require("express");
-var cors = require("cors");
-const path = require("path");
-const app = express();
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -21,6 +16,11 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
+const express = require("express");
+var cors = require("cors");
+const path = require("path");
+const app = express();
+
 // app.use(cors());
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
