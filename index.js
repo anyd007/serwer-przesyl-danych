@@ -1,10 +1,17 @@
-
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'https://dream-team-andrzej.herokuapp.com','http://localhost:3000');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Headers', 'privatekey')
+  next();
+}
 const express = require("express");
 var cors = require("cors");
 const path = require("path");
 const app = express();
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
+app.use(allowCrossDomain)
 app.use(cors());
 // var whitelist = ['https://dream-team-andrzej.herokuapp.com','http://localhost:3000']
 // var corsOptionsDelegate = function (req, callback) {
@@ -27,7 +34,7 @@ const regestryUsers = [];
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
-app.get("/", cors(),(req, res) => {
+app.get("/",(req, res) => {
   res.send(req.body);
 });
 
