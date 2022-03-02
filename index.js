@@ -41,11 +41,11 @@ app.post("/api/loginUserDatabase",(req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry",cors(), (req, res) => {
+app.get("/api/regestry", (req, res) => {
   res.json({ regestryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase", cors(),(req, res) => {
+app.get("/api/loginUserDatabase",(req, res) => {
   res.json({ loginUserDatabase });
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
