@@ -4,17 +4,6 @@ var cors = require("cors");
 const path = require("path");
 const app = express();
 // app.use(cors());
-const whitelist = ["https://serwer-dream-team.herokuapp.com"]
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback()
-    } else {
-      callback(new Error("Not allowed by CORS"))
-    }
-  },
-  credentials: true,
-}
 
 
 app.use('/', express.static(__dirname +'/src'));
@@ -30,7 +19,7 @@ app.get("/",(req, res) => {
 });
 
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/api/regestry",cors(corsOptions),(req, res) => {
+app.post("/api/regestry",(req, res) => {
   regestryUsers.push(req.body);
   res.status(200).end;
 });
@@ -40,7 +29,7 @@ app.post("/api/loginUserDatabase",(req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry",cors(corsOptions), (req, res) => {
+app.get("/api/regestry", (req, res) => {
   res.json({ regestryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
