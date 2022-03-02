@@ -4,7 +4,7 @@ var cors = require("cors");
 const path = require("path");
 const app = express();
 // app.use(cors());
-const whitelist = ["http://localhost:3000","https://serwer-dream-team.herokuapp.com"]
+const whitelist = ["https://serwer-dream-team.herokuapp.com"]
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
