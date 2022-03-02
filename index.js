@@ -16,18 +16,18 @@ app.use(cors());
 //   }
 //   callback(null, corsOptions) // callback expects two parameters: error and options
 // }
-var corsOptions = {
-  host: "https://serwer-dream-team.herokuapp.com/api/regestry",
-  origin: 'https://dream-team-andrzej.herokuapp.com/',
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+// var corsOptions = {
+//   origin: 'https://dream-team-andrzej.herokuapp.com/',
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+app.options('*', cors())
 app.use(express.json());
 const regestryUsers = [];
 const loginUserDatabase = [];
 
 //przekazywania danych na stronę sewera
-app.get("/", cors(corsOptions), (req, res) => {
+app.get("/", (req, res) => {
   res.send(req.body);
 });
 
@@ -42,11 +42,11 @@ app.post("/api/loginUserDatabase", (req, res) => {
   res.status(200).end;
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", cors(corsOptions),(req, res) => {
+app.get("/api/regestry", (req, res) => {
   res.json({ regestryUsers });
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase", cors(corsOptions), (req, res) => {
+app.get("/api/loginUserDatabase",  (req, res) => {
   res.json({ loginUserDatabase });
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
