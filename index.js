@@ -8,7 +8,9 @@ const whitelist = ["https://serwer-dream-team.herokuapp.com"]
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+      callback(app.get("/api/regestry", (req, res) => {
+        res.json({ regestryUsers });
+      }))
     } else {
       callback(new Error("Not allowed by CORS"))
     }
@@ -48,7 +50,7 @@ app.get("/api/loginUserDatabase",(req, res) => {
   res.json({ loginUserDatabase });
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
-const herokuPort = process.env.PORT || 3000;
+const herokuPort = process.env.PORT || 5000;
 //nasłuchiwanie app na jakim porcie na działać
 app.listen(herokuPort, () => {
   console.log(`Działam na porcie ${herokuPort}`);
