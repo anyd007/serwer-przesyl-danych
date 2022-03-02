@@ -5,9 +5,10 @@ const path = require("path");
 const app = express();
 // app.use(cors());
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "/");
+  res.header("Access-Control-Allow-Origin", "https://dream-team-andrzej.herokuapp.com/");
   next();
 });
+
 
 app.use('/', express.static(__dirname +'/src'));
 app.use('/public', express.static(__dirname +'/public'));
