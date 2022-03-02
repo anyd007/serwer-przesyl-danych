@@ -4,18 +4,18 @@ var cors = require("cors");
 const path = require("path");
 const app = express();
 // app.use(cors());
-// const whitelist = ["http://localhost:3000","https://serwer-dream-team.herokuapp.com"]
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (!origin || whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error("Not allowed by CORS"))
-//     }
-//   },
-//   credentials: true,
-// }
-// app.use(cors(corsOptions))
+const whitelist = ["http://localhost:3000","https://serwer-dream-team.herokuapp.com"]
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true,
+}
+app.use(cors(corsOptions))
 
 
 // app.use('/', express.static(__dirname +'/src'));
@@ -51,6 +51,6 @@ app.get("/api/loginUserDatabase", cors(),(req, res) => {
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
 const herokuPort = process.env.PORT || 3000;
 //nasłuchiwanie app na jakim porcie na działać
-server.listen(herokuPort, () => {
+app.listen(herokuPort, () => {
   console.log(`Działam na porcie ${herokuPort}`);
 });
