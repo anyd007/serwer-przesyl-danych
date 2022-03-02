@@ -45,7 +45,7 @@ app.get("/api/loginUserDatabase", cors(),(req, res) => {
   res.json({ loginUserDatabase });
 });
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
-const herokuPort = process.env.PORT || 5000;
+const herokuPort = process.env.PORT || 80;
 //nasłuchiwanie app na jakim porcie na działać
 http.listen(herokuPort, () => {
   console.log(`Działam na porcie ${herokuPort}`);
