@@ -1,11 +1,39 @@
 const express = require("express");
 const cors = require("cors");
-var proxy = require('express-http-proxy');
 const app = express();
-app.use(cors())
+// app.use(cors())
 const path = require("path");
- 
-app.use('https://dream-team-andrzej.herokuapp.com', proxy('https://serwer-dream-team.herokuapp.com/api/regestry/'));
+const asyncHandler = require("express-async-handler");
+require("express-async-errors");
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
+
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
 
@@ -23,21 +51,18 @@ app.post(
     res.status(200).end;
   })
 
-
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
 app.post(
   "/api/loginUserDatabase",(req, res) => {
   loginUserDatabase.push(req.body);
     res.status(200).end;
   })
-
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", (req, res, next) => {
+app.get("/api/regestry",(req, res, next) => {
   res.json({ regestryUsers });
 })
 //wysłanie danych do bazy danych zalogowanego uzytkownika
 app.get("/api/loginUserDatabase",(req, res) => {
-req.
 res.json({ loginUserDatabase });
 })
 if (process.env.NODE_ENV === "production") {
