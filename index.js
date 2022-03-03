@@ -1,7 +1,8 @@
 const express = require("express");
-var cors = require("cors");
-const path = require("path");
+const cors = require("cors");
 const app = express();
+app.use(cors())
+const path = require("path");
 const asyncHandler = require("express-async-handler");
 require("express-async-errors");
 app.use(function (req, res, next) {
@@ -27,7 +28,7 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-// app.use(cors());
+
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   next();
