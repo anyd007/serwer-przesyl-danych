@@ -1,9 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+var proxy = require('express-http-proxy');
 const app = express();
+app.use(cors())
 const path = require("path");
 const request = require('request');
  
+app.use('/api/regestry', proxy('https://dream-team-andrzej.herokuapp.com/'));
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
 
@@ -31,18 +34,11 @@ app.post(
 
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
 app.get("/api/regestry", (req, res, next) => {
-  request(
-    {url:"https://dream-team-andrzej.herokuapp.com/"},
-    (error, response, regestryUsers) =>{
-      if (error || response.statusCode !== 200) {
-        return res.status(500).json({ type: 'error', message: err.message });
-      }
-  res.json({ regestryUsers })
-    }
-  )
+  res.json({ regestryUsers });
 })
 //wysłanie danych do bazy danych zalogowanego uzytkownika
 app.get("/api/loginUserDatabase",(req, res) => {
+req.
 res.json({ loginUserDatabase });
 })
 if (process.env.NODE_ENV === "production") {
