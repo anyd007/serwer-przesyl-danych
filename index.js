@@ -1,15 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const corsOptions = {
-  origin: process.env.CORS_ALLOW_ORIGIN || '*',
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-app.use(cors(corsOptions)); 
 const path = require("path");
-const asyncHandler = require("express-async-handler");
-require("express-async-errors");
+const request = require('request');
  
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
@@ -38,7 +31,15 @@ app.post(
 
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
 app.get("/api/regestry", (req, res, next) => {
-  res.json({ regestryUsers });
+  request(
+    {url:"https://dream-team-andrzej.herokuapp.com/"},
+    (error, response, regestryUsers) =>{
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: err.message });
+      }
+  res.json({ regestryUsers })
+    }
+  )
 })
 //wysłanie danych do bazy danych zalogowanego uzytkownika
 app.get("/api/loginUserDatabase",(req, res) => {
