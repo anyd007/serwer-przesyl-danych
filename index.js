@@ -42,7 +42,7 @@ app.get("/",(req, res) => {
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post("/api/regestry", async (req, res) => {
 try {
-  regestryUsers.push(req.body);
+ await regestryUsers.push(req.body);
   res.status(200).end;
 }
 catch(error){
