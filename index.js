@@ -14,8 +14,8 @@ app.use('/api/regestry', createProxyMiddleware({
   }
 }));
 
-app.use("/", express.static(__dirname + "src"));
-app.use("/public", express.static(__dirname + "public"));
+// app.use("/", express.static(__dirname + "src"));
+// app.use("/public", express.static(__dirname + "public"));
 
 app.use(express.json());
 const regestryUsers = [];
