@@ -5,7 +5,7 @@ app.use(cors())
 const path = require("path");
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
-app.use('api/regestry', createProxyMiddleware({ 
+app.use('https://serwer-dream-team.herokuapp.com/api/regestry/', createProxyMiddleware({ 
   target: 'https://dream-team-andrzej.herokuapp.com', //original url
   changeOrigin: true, 
   //secure: false,
