@@ -55,7 +55,7 @@ app.post(
 
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
 app.post(
-  "/api/loginUserDatabase",
+  "/api/loginUserDatabase/",
   asyncHandler(async (req, res) => {
   loginUserDatabase.push(req.body);
     res.status(200).end;
