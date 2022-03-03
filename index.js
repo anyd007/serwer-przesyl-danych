@@ -10,7 +10,7 @@ app.use('/api/regestry', createProxyMiddleware({
   changeOrigin: true, 
   //secure: false,
   onProxyRes: function (proxyRes, req, res) {
-     proxyRes.headers['Access-Control-Allow-Origin'] = 'https://dream-team-andrzej.herokuapp.com';
+     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
   }
 }));
 
