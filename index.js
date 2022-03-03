@@ -39,14 +39,18 @@ const loginUserDatabase = [];
 app.get("/",(req, res) => {
   res.send(req.body);
 });
-
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/api/regestry",(req, res) => {
+app.post("/api/regestry", async (req, res) => {
+try {
   regestryUsers.push(req.body);
   res.status(200).end;
+}
+catch(error){
+  error = console.log("za długo czekamy");
+}
 });
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
-app.post("/api/loginUserDatabase",(req, res) => {
+app.post("/api/loginUserDatabase",async (req, res) => {
   loginUserDatabase.push(req.body);
   res.status(200).end;
 });
@@ -58,6 +62,12 @@ app.get("/api/regestry", (req, res) => {
 app.get("/api/loginUserDatabase",(req, res) => {
   res.json({ loginUserDatabase });
 });
+if(process.env.NODE_ENV === 'production'){
+  app.get('/*',(req,res)=>{
+      res.sendfile(path.resolve(__dirname,'src','components','index.html'))
+  })
+}
+
 //tworzenie zmiennej która przekaże dane do heroku, dodatkowo należy dopisać w package.jeson w scripts : "web": "index.js"
 const herokuPort = process.env.PORT || 3000;
 //nasłuchiwanie app na jakim porcie na działać
