@@ -1,11 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-// var proxy = require('express-http-proxy');
+var proxy = require('express-http-proxy');
 const app = express();
 app.use(cors())
 const path = require("path");
  
-// app.use('https://dream-team-andrzej.herokuapp.com', proxy('/api/regestry'));
+app.use('https://dream-team-andrzej.herokuapp.com', proxy('https://serwer-dream-team.herokuapp.com/api/regestry/'));
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
 
