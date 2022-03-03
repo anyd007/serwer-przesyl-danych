@@ -28,6 +28,7 @@
     "express-async-handler": "^1.2.0",
     "express-http-proxy": "^1.6.3",
     "express-ws": "^5.0.2",
+    "http-proxy-middleware": "^2.0.3",
     "multiple-cors-domain": "^1.0.4",
     "nodemon": "^2.0.15",
     "request": "^2.88.2",

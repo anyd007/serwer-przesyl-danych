@@ -1,20 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-// app.use(cors())
+app.use(cors())
 const path = require("path");
-const asyncHandler = require("express-async-handler");
-require("express-async-errors");
-var allowlist = ['https://serwer-dream-team.herokuapp.com/api/regestry', 'https://serwer-dream-team.herokuapp.com/api/loginUserDatabase', 'https://dream-team-andrzej.herokuapp.com/']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
+const { createProxyMiddleware } = require('http-proxy-middleware');
+app.use('/api/regestry', createProxyMiddleware({ 
+  target: 'https://dream-team-andrzej.herokuapp.com/', //original url
+  changeOrigin: true, 
+  //secure: false,
+  onProxyRes: function (proxyRes, req, res) {
+     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
   }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
+}));
 
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
@@ -28,7 +25,7 @@ app.get("/", (req, res) => {
 });
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post(
-  "/api/regestry", cors(corsOptionsDelegate),(req, res) => {
+  "/api/regestry",(req, res) => {
   regestryUsers.push(req.body);
     res.status(200).end;
   })
