@@ -4,15 +4,15 @@ const app = express();
 app.use(cors())
 const path = require("path");
 
-const { createProxyMiddleware } = require('http-proxy-middleware');
-app.use('/api/regestry', createProxyMiddleware({ 
-  target: 'https://serwer-dream-team.herokuapp.com/', //original url
-  changeOrigin: true, 
-  //secure: false,
-  onProxyRes: function (proxyRes, req, res) {
-     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-  }
-}));
+// const { createProxyMiddleware } = require('http-proxy-middleware');
+// app.use('/api/regestry', createProxyMiddleware({ 
+//   target: 'https://serwer-dream-team.herokuapp.com/', //original url
+//   changeOrigin: true, 
+//   //secure: false,
+//   onProxyRes: function (proxyRes, req, res) {
+//      proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+//   }
+// }));
 
 // app.use("/", express.static(__dirname + "src"));
 // app.use("/public", express.static(__dirname + "public"));
