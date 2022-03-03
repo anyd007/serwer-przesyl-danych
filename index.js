@@ -46,9 +46,9 @@ app.get("/", (req, res) => {
 });
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post(
-  "/api/regestry",
+  "/api/regestry/",
   asyncHandler(async (req, res) => {
-    await regestryUsers.push(req.body);
+  regestryUsers.push(req.body);
     res.status(200).end;
   })
 );
@@ -57,17 +57,17 @@ app.post(
 app.post(
   "/api/loginUserDatabase",
   asyncHandler(async (req, res) => {
-    await loginUserDatabase.push(req.body);
+  loginUserDatabase.push(req.body);
     res.status(200).end;
   })
 );
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
 app.get("/api/regestry", asyncHandler(async (req, res, next) => {
-    await res.json({ regestryUsers });
+  res.json({ regestryUsers });
 }))
 //wysłanie danych do bazy danych zalogowanego uzytkownika
 app.get("/api/loginUserDatabase", asyncHandler(async(req, res) => {
-  await res.json({ loginUserDatabase });
+res.json({ loginUserDatabase });
 }));
 if (process.env.NODE_ENV === "production") {
   app.get("/*", (req, res) => {
