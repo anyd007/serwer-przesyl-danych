@@ -6,7 +6,7 @@ app.use(cors())
 const path = require("path");
 const request = require('request');
  
-app.use('/api/regestry', proxy('https://dream-team-andrzej.herokuapp.com/'));
+app.use('/api/regestry', proxy('https://dream-team-andrzej.herokuapp.com'));
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
 
