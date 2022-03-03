@@ -5,34 +5,16 @@ const app = express();
 const path = require("path");
 const asyncHandler = require("express-async-handler");
 require("express-async-errors");
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "*");
-
-  // Request methods you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-
-  // Request headers you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader("Access-Control-Allow-Credentials", true);
-
-  // Pass to next layer of middleware
-  next();
-});
-
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   next();
-// });
+var allowlist = ['https://serwer-dream-team.herokuapp.com/api/regestry', 'https://serwer-dream-team.herokuapp.com/api/loginUserDatabase', 'https://dream-team-andrzej.herokuapp.com/']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
 
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
@@ -46,7 +28,7 @@ app.get("/", (req, res) => {
 });
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post(
-  "/api/:regestry",(req, res) => {
+  "/api/regestry", cors(corsOptionsDelegate),(req, res) => {
   regestryUsers.push(req.body);
     res.status(200).end;
   })
