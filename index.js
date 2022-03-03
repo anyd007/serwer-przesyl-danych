@@ -62,11 +62,11 @@ app.post(
   })
 );
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("api/regestry", asyncHandler(async (req, res, next) => {
+app.get("/api/regestry", asyncHandler(async (req, res, next) => {
   res.json({ regestryUsers });
 }))
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("api/loginUserDatabase", asyncHandler(async(req, res) => {
+app.get("/api/loginUserDatabase", asyncHandler(async(req, res) => {
 res.json({ loginUserDatabase });
 }));
 if (process.env.NODE_ENV === "production") {
