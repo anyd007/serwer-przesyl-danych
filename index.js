@@ -6,7 +6,6 @@ const app = express();
 const asyncHandler = require("express-async-handler");
 require("express-async-errors");
 app.use(function (req, res, next) {
-  res.setHeader("Transfer-Encoding", "chunked");
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", "*");
 
