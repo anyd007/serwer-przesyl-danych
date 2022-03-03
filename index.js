@@ -46,7 +46,7 @@ app.get("/", (req, res) => {
 });
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post(
-  "/api/regestry",(req, res) => {
+  "/api/:regestry",(req, res) => {
   regestryUsers.push(req.body);
     res.status(200).end;
   })
