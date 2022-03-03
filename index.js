@@ -40,19 +40,26 @@ app.get("/",(req, res) => {
   res.send(req.body);
 });
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
-app.post("/api/regestry", async (req, res) => {
+app.post("/api/regestry", async (req, res, next) => {
 try {
  await regestryUsers.push(req.body);
   res.status(200).end;
+  next();
 }
 catch(error){
   error = console.log("za długo czekamy");
 }
 });
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
-app.post("/api/loginUserDatabase",async (req, res) => {
-  loginUserDatabase.push(req.body);
+app.post("/api/loginUserDatabase",async (req, res, next) => {
+  try {
+  await loginUserDatabase.push(req.body);
   res.status(200).end;
+  next()
+  }
+  catch(error){
+    console.log(error);
+  }
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
 app.get("/api/regestry", (req, res) => {
