@@ -60,8 +60,13 @@ app.post("/api/loginUserDatabase",async (req, res) => {
   }
 });
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", (req, res) => {
-  res.json({ regestryUsers });
+app.get("/api/regestry", async(req, res, next) => {
+  try{
+    await res.json({ regestryUsers });
+    next()
+  }catch(error){
+    return next(error)
+  }
 });
 //wysłanie danych do bazy danych zalogowanego uzytkownika
 app.get("/api/loginUserDatabase",(req, res) => {
