@@ -61,18 +61,13 @@ app.post(
   })
 );
 // wysłanie danych z rejestracji zapisanych na serwerze z powrotem juz na strone logowania do sprawdzenia poprawnosci logowania usera
-app.get("/api/regestry", async (req, res, next) => {
-  try {
+app.get("/api/regestry", asyncHandler(async (req, res, next) => {
     await res.json({ regestryUsers });
-    next();
-  } catch (error) {
-    return next(error);
-  }
-});
+}))
 //wysłanie danych do bazy danych zalogowanego uzytkownika
-app.get("/api/loginUserDatabase", (req, res) => {
-  res.json({ loginUserDatabase });
-});
+app.get("/api/loginUserDatabase", asyncHandler(async(req, res) => {
+  await res.json({ loginUserDatabase });
+}));
 if (process.env.NODE_ENV === "production") {
   app.get("/*", (req, res) => {
     res.sendfile(path.resolve(__dirname, "src", "components", "index.html"));
