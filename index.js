@@ -34,8 +34,8 @@ app.use(function (req, res, next) {
 //   next();
 // });
 
-app.use("/", express.static(__dirname + "/src"));
-app.use("/public", express.static(__dirname + "/public"));
+app.use("/", express.static(__dirname + "src"));
+app.use("/public", express.static(__dirname + "public"));
 
 app.use(express.json());
 const regestryUsers = [];
@@ -46,7 +46,7 @@ app.get("/", (req, res) => {
 });
 // pobieranie danych z rejestracji i zapisywanie ich do tablicy regystryUsers
 app.post(
-  "/api/regestry",
+  "api/regestry",
   asyncHandler(async (req, res) => {
   regestryUsers.push(req.body);
     res.status(200).end;
@@ -55,7 +55,7 @@ app.post(
 
 // pobieranie danych z inputów dream teamu i dodawanie ich do pustej tablict "loginUserDatabase"
 app.post(
-  "/api/loginUserDatabase",
+  "api/loginUserDatabase",
   asyncHandler(async (req, res) => {
   loginUserDatabase.push(req.body);
     res.status(200).end;
