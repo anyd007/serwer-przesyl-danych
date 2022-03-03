@@ -1,3 +1,4 @@
+
 const express = require("express");
 var cors = require("cors");
 const path = require("path");
@@ -5,6 +6,7 @@ const app = express();
 const asyncHandler = require("express-async-handler");
 require("express-async-errors");
 app.use(function (req, res, next) {
+  res.addHeader("Transfer-Encoding", "chunked");
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", "*");
 
