@@ -4,7 +4,7 @@ const app = express();
 // app.use(cors())
 const path = require("path");
 const allowCORS = function(req, res, next) {
-  var origin = req.get('origin');
+  var origin = req.get('https://dream-team-andrzej.herokuapp.com/');
   res.header("Access-Control-Allow-Origin", origin);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
