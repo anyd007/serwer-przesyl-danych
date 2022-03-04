@@ -8,7 +8,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-let whitelist = ['https://serwer-dream-team.herokuapp.com/api/regestry', 'https://dream-team-andrzej.herokuapp.com']
+let whitelist = ['http://localhost:4000', 'https://dream-team-andrzej.herokuapp.com']
 app.use(cors({
   origin: function(origin, callback){
     // allow requests with no origin 
@@ -20,6 +20,13 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+app.use(cors({
+  credentials: true,
+}));
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://dream-team-andrzej.herokuapp.com/', true);
+xhr.withCredentials = true;
+xhr.send(null);
 
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
