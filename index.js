@@ -10,9 +10,9 @@ const allowCORS = function(req, res, next) {
   next();
 };
 app.use(
-  '/api/regestry', 
+  '/api/', 
   allowCORS, // allow cors for public api
-  require('./api/regestry'));
+  require('./api'));
 
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
