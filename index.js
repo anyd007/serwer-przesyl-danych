@@ -8,10 +8,18 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-pp.use(cors({
-  origin: 'https://dream-team-andrzej.herokuapp.com'
+let whitelist = ['http://localhost:4000', 'https://dream-team-andrzej.herokuapp.com']
+app.use(cors({
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    if(!origin) return callback(null, true);
+    if(whitelist.indexOf(origin) === -1){
+      var message = 'The CORS policy for this origin doesn allow access from the particular origin.';
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
 }));
-
 
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
