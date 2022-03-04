@@ -3,11 +3,16 @@ const cors = require("cors");
 const app = express();
 // app.use(cors())
 const path = require("path");
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://dream-team-andrzej.herokuapp.com"); // update to match the domain you will make the request from
+const allowCORS = function(req, res, next) {
+  var origin = req.get('origin');
+  res.header("Access-Control-Allow-Origin", origin);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-});
+};
+app.use(
+  '/api/regestry', 
+  allowCORS, // allow cors for public api
+  require('./api/regestry'));
 
 app.use("/", express.static(__dirname + "src"));
 app.use("/public", express.static(__dirname + "public"));
